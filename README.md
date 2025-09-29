@@ -16,7 +16,7 @@
 3. **사용자 체크인**
    - 빈강의실 사용 여부 기록
    - 점유 정보 업데이트에 활용
-  
+
 ## 사용 기술
 	- SwiftUI (모바일)
 	- Apple Maps SDK
@@ -26,16 +26,18 @@
   ``` <type>(<scope>): <short description> ```
 
 type 예시
-	•	feat: 새로운 기능 추가
-	•	fix: 버그 수정
-	•	docs: 문서/README 수정
-	•	style: 코드 포맷, 들여쓰기 등
-	•	refactor: 코드 리팩토링
-	•	test: 테스트 추가/수정
-	•	chore: 빌드/설정/패키지 관련 변경
+
+- feat: 새로운 기능 추가
+- fix: 버그 수정
+- docs: 문서/README 수정
+- style: 코드 포맷, 들여쓰기 등
+- refactor: 코드 리팩토링
+- test: 테스트 추가/수정
+- chore: 빌드/설정/패키지 관련 변경
 
 커밋 메시지 예시
-	•	feat(map): 지도 기반 빈강의실 표시 기능 추가
-	•	fix(api): 체크인 데이터 동기화 버그 수정
-	•	docs: README 설치 방법 업데이트
-	•	refactor(components): ClassroomCard 컴포넌트 리팩토링
+
+- feat(map): 지도 기반 빈강의실 표시 기능 추가
+- fix(api): 체크인 데이터 동기화 버그 수정
+- docs: README 설치 방법 업데이트
+- refactor(components): ClassroomCard 컴포넌트 리팩토링
