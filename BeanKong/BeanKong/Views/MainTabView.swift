@@ -6,46 +6,43 @@
 //
 
 import SwiftUI
+import SwiftData
 
 
 struct MainTabView: View {
+    @Environment(\.modelContext) private var context
+        @Query(sort: \BuildingEntity.name, order: .forward) private var buildings: [BuildingEntity] // 여기서 가져오기
+        @State private var searchText = ""
+        
     var body: some View {
-        @State var searchText = ""
         TabView {
             Tab("홈", systemImage: "house.fill") {
-                HomeView()
+                if buildings.isEmpty {
+                    EmptyDataView(context: context)
+                } else {
+                    BuildingListView()
+                }
             }
+            
             Tab("지도", systemImage: "map.fill") {
                 DetailMapView()
             }
-            // 시간표 수정아닐때 빈강의실 찾기
-            if ( 1+1 == 3) {
-                
-                Tab("Four", systemImage: "magnifyingglass", role: .search) {
-                    NavigationStack {
-                        
-                    }
-                }
-            }
-            // 시간표 수정일때 강의 검색하기
-            if ( 1+1 == 2) {
-                
-                Tab("Four", systemImage: "magnifyingglass", role: .search) {
-                    NavigationStack {
-                        
-                    }
+            
+            Tab("검색", systemImage: "magnifyingglass", role: .search) {
+                NavigationStack {
+                    SearchView(searchText: $searchText, buildings: buildings)
                 }
             }
         }
         .tabViewStyle(.sidebarAdaptable)
         .tabBarMinimizeBehavior(.onScrollDown)
-        .searchable(text: $searchText)
-        
-        
+        //        .searchable(text: $searchText)
     }
+        
+    
 }
     
-
-#Preview {
-    MainTabView()
-}
+//
+//#Preview {
+//    MainTabView()
+//}

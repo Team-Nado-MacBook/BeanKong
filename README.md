@@ -41,3 +41,72 @@ type 예시
 - fix(api): 체크인 데이터 동기화 버그 수정
 - docs: README 설치 방법 업데이트
 - refactor(components): ClassroomCard 컴포넌트 리팩토링
+
+# BeanKong 데이터 구조
+
+
+
+## **1. BuildingEntity (건물)**
+
+
+
+| **속성** | **타입**     | **설명**                          |
+| -------- | ------------ | --------------------------------- |
+| id       | String       | 고유 식별자 (JSON name 값과 동일) |
+| name     | String       | 건물 이름                         |
+| lat      | Double       | 건물 위도                         |
+| lng      | Double       | 건물 경도                         |
+| rooms    | [RoomEntity] | 건물 내 강의실 목록 (1:N 관계)    |
+
+## **2. RoomEntity (강의실)**
+
+| **속성**  | **타입**         | **설명**                      |
+| --------- | ---------------- | ----------------------------- |
+| id        | String           | 고유 식별자 (건물명-호실번호) |
+| room      | String           | 강의실 번호                   |
+| building  | BuildingEntity   | 소속 건물 (N:1 관계)          |
+| schedules | [ScheduleEntity] | 강의실 시간표 (1:N 관계)      |
+
+## **3. ScheduleEntity (시간표)**
+
+
+
+| **속성** | **타입**   | **설명**                            |
+| -------- | ---------- | ----------------------------------- |
+| day      | String     | 요일 (mon, tue, wen, thu, fri, sat) |
+| classes  | [String]   | 해당 요일 강의 리스트               |
+| room     | RoomEntity | 소속 강의실 (N:1 관계)              |
+
+## **4. JSON 데이터 예시**
+
+
+
+```
+[
+    {
+        "name": "산격동 캠퍼스 대학원동",
+        "lat": 35.900309,
+        "lng": 128.6054241,
+        "rooms": [
+            {
+                "room": "301",
+                "mon": ["2B","3A","3B","7A","7B","8A"],
+                "tue": ["1A","1B"],
+                "wen": null,
+                "thu": ["3A","3B"],
+                "fri": null,
+                "sat": null
+            }
+        ]
+    }
+]
+```
+
+## **5. 관계 구조 요약**
+
+```
+BuildingEntity
+ └─ rooms : [RoomEntity]
+       └─ schedules : [ScheduleEntity]
+```
+
