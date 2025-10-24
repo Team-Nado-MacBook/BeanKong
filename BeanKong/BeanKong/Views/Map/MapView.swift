@@ -92,6 +92,6 @@ struct DetailMapView: View {
                             ],
                             selection: $selectedDetent // ✅ 현재 높이를 이 변수와 연결!
                         )
-                }
+            }
     }
 }
