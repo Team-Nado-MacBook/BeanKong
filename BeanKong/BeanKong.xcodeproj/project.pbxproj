@@ -29,9 +29,25 @@
 		9DA827412E8AEA9800BE55D1 /* BeanKongUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeanKongUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9D0740182EAA77B000390A0E /* Exceptions for "BeanKong" folder in "BeanKong" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9DA827292E8AEA9700BE55D1 /* BeanKong */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9DA8272C2E8AEA9700BE55D1 /* BeanKong */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9D0740182EAA77B000390A0E /* Exceptions for "BeanKong" folder in "BeanKong" target */,
+			);
+			explicitFileTypes = {
+				Info.plist = net.daringfireball.markdown;
+			};
 			path = BeanKong;
 			sourceTree = "<group>";
 		};
@@ -400,6 +416,7 @@
 				DEVELOPMENT_TEAM = UW9295Z57Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BeanKong/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -432,6 +449,7 @@
 				DEVELOPMENT_TEAM = UW9295Z57Q;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BeanKong/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
