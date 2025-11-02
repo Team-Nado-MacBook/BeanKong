@@ -48,7 +48,7 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
         hasSetInitialPosition = true
     }
 }
-struct DetailMapView: View {
+struct MapView: View {
     @Query(sort: \BuildingEntity.name) private var buildings: [BuildingEntity]
     @StateObject private var locationManager = LocationManager()
     @State private var isSatellite = false
@@ -82,13 +82,13 @@ struct DetailMapView: View {
         }
 
         .sheet(item: $selectedBuilding) { building in
-                    RoomListView(building: building)
+                MapRoomListView(building: building)
                         // ✅ 2. 시트가 멈출 높이들(detents) 설정!
                         .presentationDetents(
                             [
                                 .fraction(0.3), // 30% 높이
                                 .fraction(0.5), // 50% 높이
-                                .fraction(0.7)  // 70% 높이
+                                .fraction(0.9)  // 70% 높이
                             ],
                             selection: $selectedDetent // ✅ 현재 높이를 이 변수와 연결!
                         )

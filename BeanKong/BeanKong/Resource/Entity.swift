@@ -5,49 +5,60 @@
 //  Created by 문재윤 on 10/24/25.
 //
 
-
 import SwiftData
 import Foundation
 
+// MARK: - 수업
 @Model
-class BuildingEntity {
-    @Attribute(.unique) var id: String      // JSON name
-    var name: String
-    var lat: Double
-    var lng: Double
-    var rooms: [RoomEntity] = []
-    
-    init(id: String, name: String, lat: Double, lng: Double) {
-        self.id = id
-        self.name = name
-        self.lat = lat
-        self.lng = lng
-    }
-}
-
-@Model
-class RoomEntity {
-    @Attribute(.unique) var id: String      // JSON room
+class ClassEntity {
+    @Attribute(.unique) var classId: String
+    var subject: String
+    var building: String
     var room: String
-    var schedules: [ScheduleEntity] = []
-    var building: BuildingEntity
-    
-    init(id: String, room: String, building: BuildingEntity) {
-        self.id = id
-        self.room = room
+
+    @Relationship(inverse: \ClassSchedule.classEntity)
+    var schedules: [ClassSchedule] = []
+
+    init(classId: String, subject: String, building: String, room: String) {
+        self.classId = classId
+        self.subject = subject
         self.building = building
+        self.room = room
     }
 }
 
+// MARK: - 수업 시간
 @Model
-class ScheduleEntity {
-    var day: String    // "mon", "tue", ...
-    var classes: [String]
-    var room: RoomEntity
-    
-    init(day: String, classes: [String], room: RoomEntity) {
+class ClassSchedule {
+    var day: String
+    var timeSlots: [String] = []
+
+    var classEntity: ClassEntity?
+
+    init(day: String, timeSlots: [String], classEntity: ClassEntity? = nil) {
         self.day = day
-        self.classes = classes
-        self.room = room
+        self.timeSlots = timeSlots
+        self.classEntity = classEntity
+    }
+}
+
+import SwiftData
+
+@Model
+class MyScheduleEntity: Identifiable {
+    @Attribute(.unique) var id: UUID = UUID()
+    
+    var classId: String
+    var subject: String
+    var building: String
+    var room: String
+    var schedules: [ClassSchedule] = []
+
+    init(classEntity: ClassEntity) {
+        self.classId = classEntity.classId
+        self.subject = classEntity.subject
+        self.building = classEntity.building
+        self.room = classEntity.room
+        self.schedules = classEntity.schedules
     }
 }

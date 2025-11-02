@@ -10,7 +10,7 @@ import SwiftData
 
 struct EmptyDataView: View {
     let context: ModelContext
-    
+    let classURL = Bundle.main.url(forResource: "classes", withExtension: "json")
     var body: some View {
         VStack(spacing: 20) {
             Text("📦 데이터가 없습니다!")
@@ -39,10 +39,20 @@ struct EmptyDataView: View {
     }
     
     private func loadInitialData() {
-        guard let url = Bundle.main.url(forResource: "merged_buildings", withExtension: "json") else {
-            print("❌ JSON 파일을 찾을 수 없음")
-            return
+//        // 1️⃣ 빌딩+강의실 JSON 저장
+        if let buildingURL = Bundle.main.url(forResource: "merged_buildings", withExtension: "json") {
+            saveJSONToSwiftData(context: context, url: buildingURL)
+        } else {
+            print("❌ merged_buildings.json 파일을 찾을 수 없음")
         }
-        saveJSONToSwiftData(context: context, url: url)
+        
+        // 2️⃣ 수업 JSON 저장
+        if let classURL = Bundle.main.url(forResource: "classes", withExtension: "json") {
+            print("제발 좀 되라 시발")
+            saveClassesJSONToSwiftData(context: context, url: classURL)
+            print("왜 안되냐 시발")
+        } else {
+            print("❌ classes.json 파일을 찾을 수 없음")
+        }
     }
 }

@@ -26,7 +26,16 @@ struct BeanKongApp: App {
     @State private var container: ModelContainer
     
     init() {
-        let schema = Schema([BuildingEntity.self, RoomEntity.self, ScheduleEntity.self])
+        let schema = Schema([
+            BuildingEntity.self,
+            RoomEntity.self,
+            ScheduleEntity.self,
+            ClassEntity.self,       // ✅ 추가
+            ClassSchedule.self,
+            MyScheduleEntity.self,
+            
+        ])
+        
         let configuration = ModelConfiguration(isStoredInMemoryOnly: false)
         do {
             container = try ModelContainer(for: schema, configurations: [configuration])
