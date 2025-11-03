@@ -30,7 +30,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9D0740182EAA77B000390A0E /* Exceptions for "BeanKong" folder in "BeanKong" target */ = {
+		9DEF845D2EB86C4D00022300 /* Exceptions for "BeanKong" folder in "BeanKong" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -43,7 +43,7 @@
 		9DA8272C2E8AEA9700BE55D1 /* BeanKong */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				9D0740182EAA77B000390A0E /* Exceptions for "BeanKong" folder in "BeanKong" target */,
+				9DEF845D2EB86C4D00022300 /* Exceptions for "BeanKong" folder in "BeanKong" target */,
 			);
 			explicitFileTypes = {
 				Info.plist = net.daringfireball.markdown;
