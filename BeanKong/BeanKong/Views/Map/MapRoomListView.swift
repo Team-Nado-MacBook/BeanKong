@@ -45,7 +45,6 @@ struct MapRoomListView: View {
         let todaySchedules = room.schedules.first(where: { $0.day == currentDay })?.classes ?? []
         return !todaySchedules.contains(classSlots[currentClassIndex])
     }
-    
     var body: some View {
         VStack(spacing: 8) {
             Text(building.name)
@@ -54,33 +53,45 @@ struct MapRoomListView: View {
             
             Divider()
             
-            List(building.rooms, id: \.id) { room in
-                HStack {
-                    Text(room.room)
-                        .font(.headline)
-                    Spacer()
-                    let hours = maxAvailableHoursFromNow(for: room)
-                    if isRoomAvailableNow(room) && hours > 0 {
-                        VStack(alignment: .trailing) {
-                            Text("사용 가능")
-                                .foregroundColor(.green)
-                                .font(.subheadline)
-                            Text("지금부터 \(hours, specifier: "%.1f")시간 사용 가능")
-                                .foregroundColor(.green)
-                                .font(.caption2)
+            ScrollView {
+                VStack(spacing: 6) {
+                    ForEach(building.rooms, id: \.id) { room in
+                        HStack {
+                            Text(room.room)
+                                .font(.headline)
+                            
+                            Spacer()
+                            
+                            let hours = maxAvailableHoursFromNow(for: room)
+                            if isRoomAvailableNow(room) && hours > 0 {
+                                VStack(alignment: .trailing) {
+                                    Text("사용 가능")
+                                        .foregroundColor(.green)
+                                        .font(.subheadline)
+                                    Text("지금부터 \(hours, specifier: "%.1f")시간 사용 가능")
+                                        .foregroundColor(.green)
+                                        .font(.caption2)
+                                }
+                            } else {
+                                VStack(alignment: .trailing) {
+                                    Text("사용 중")
+                                        .foregroundColor(.red)
+                                        .font(.subheadline)
+                                    Text("지금부터 0시간")
+                                        .foregroundColor(.gray)
+                                        .font(.caption2)
+                                }
+                            }
                         }
-                    } else {
-                        VStack(alignment: .trailing) {
-                            Text("사용 중")
-                                .foregroundColor(.red)
-                                .font(.subheadline)
-                            Text("지금부터 0시간")
-                                .foregroundColor(.gray)
-                                .font(.caption2)
-                        }
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 15, style: .continuous)
+                                .fill(.white)
+                        )
+
                     }
                 }
-                .padding(.vertical, 4)
+                .padding(.horizontal)
             }
         }
         .presentationDetents([.fraction(0.5)])
