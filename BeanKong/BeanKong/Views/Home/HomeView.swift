@@ -11,7 +11,6 @@ import SwiftData
 
 struct HomeView: View {
     @State private var userLocation: CLLocationCoordinate2D?
-    @State private var navigateToTimetable = false
     @State private var showHelp = false
     @State private var selectedDay: String = {
         let weekdays = ["일", "월", "화", "수", "목", "금", "토"]
@@ -36,6 +35,7 @@ struct HomeView: View {
         
         return "\(hour):\(roundedMinute == 0 ? "00" : "30")"
     }()
+    
     @State private var selectedEndTime: String = "17:30"
     @State private var showStartSheet: Bool = false
     @State private var showEndSheet: Bool = false
@@ -45,9 +45,14 @@ struct HomeView: View {
     @State private var endClass = "3B"
     @State private var isLoading = true
     
-    // 30분 단위 시간 리스트
-    let timeSlots = (9..<18).flatMap { hour in
-        ["\(hour):00","\(hour):30"]
+    // 시작용 시간 리스트
+    let startTimeSlots = (9...17).flatMap { hour in
+        ["\(hour):00", "\(hour):30"]
+    }
+
+    // 끝용 시간 리스트
+    let endTimeSlots = (9...18).flatMap { hour in
+        ["\(hour):30", "\(hour+1):00"].filter { $0 != "19:00" } // 18:30까지
     }
     
     // 시간 → 교시 변환 함수
@@ -100,14 +105,7 @@ struct HomeView: View {
     }
     var body: some View {
         NavigationStack {
-                
                 List() {
-//                    Section {
-//                        MyTimeTableView()
-//                        
-//                    }
-                    
-                    
                     // 빌딩 리스트
                     Section {
                         TimeFilterSectionView(
@@ -120,7 +118,8 @@ struct HomeView: View {
                         BuildingListView(
                             userLocation: userLocation,
                             startClass: startClass,
-                            endClass: endClass
+                            endClass: endClass,
+                            selectedDay: selectedDay 
                         )
                     }
                 }
@@ -129,11 +128,7 @@ struct HomeView: View {
                 .navigationTitle("빈강의실 찾기")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {
-                        Button("시간표 수정") {
-                            navigateToTimetable = true
-                        }
-                        Button("도움말") {
+                    Menu {                        Button("도움말") {
                             showHelp.toggle()
                         }
                     } label: {
@@ -159,11 +154,10 @@ struct HomeView: View {
                         .padding(.top)
                     Divider()
                     Picker("시작 시간", selection: $selectedStartTime) {
-                        ForEach(timeSlots, id: \.self) { time in
+                        ForEach(startTimeSlots, id: \.self) { time in
                             Text(time).tag(time)
                         }
-                    }
-                    .pickerStyle(.wheel)
+                    }                    .pickerStyle(.wheel)
                     .labelsHidden()
                     .frame(maxHeight: 200)
                     .onChange(of: selectedStartTime) { newTime in
@@ -181,7 +175,7 @@ struct HomeView: View {
                         .padding(.top)
                     Divider()
                     Picker("끝 시간", selection: $selectedEndTime) {
-                        ForEach(timeSlots, id: \.self) { time in
+                        ForEach(endTimeSlots, id: \.self) { time in
                             Text(time).tag(time)
                         }
                     }
