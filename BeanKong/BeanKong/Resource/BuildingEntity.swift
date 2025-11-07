@@ -61,3 +61,18 @@ class ScheduleEntity {
     }
 }
 
+
+@Model
+class FavoriteRoomEntity {
+    
+    // 🔹 (수정) RoomEntity와 '관계'를 맺는 대신, 'ID'만 문자열로 저장합니다.
+    @Attribute(.unique) var roomID: String
+    
+    // 즐겨찾기 추가한 시간 (정렬용)
+    var favoritedAt: Date
+
+    init(roomID: String, favoritedAt: Date = .now) {
+        self.roomID = roomID
+        self.favoritedAt = favoritedAt
+    }
+}

@@ -105,9 +105,14 @@ struct HomeView: View {
     }
     var body: some View {
         NavigationStack {
+    
                 List() {
                     // 빌딩 리스트
-                    Section {
+                    Section(header: Text("즐겨찾기")) {
+                        FavoriteListView()
+                    }
+                    
+                    Section(header: Text("조건에 맞는 빈강의실"))  {
                         TimeFilterSectionView(
                             selectedStartTime: $selectedStartTime,
                             selectedEndTime: $selectedEndTime,

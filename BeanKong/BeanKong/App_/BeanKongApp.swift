@@ -30,9 +30,7 @@ struct BeanKongApp: App {
             BuildingEntity.self,
             RoomEntity.self,
             ScheduleEntity.self,
-            ClassEntity.self,       // ✅ 추가
-            ClassSchedule.self,
-            MyScheduleEntity.self,
+            FavoriteRoomEntity.self
             
         ])
         

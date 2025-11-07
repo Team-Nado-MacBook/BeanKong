@@ -13,8 +13,6 @@ struct MainTabView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \BuildingEntity.name, order: .forward) private var buildings: [BuildingEntity]
        
-       // 수업 조회
-       @Query(sort: \ClassEntity.subject, order: .forward) private var classes: [ClassEntity]
        
        @State private var searchText = ""
        
@@ -29,13 +27,7 @@ struct MainTabView: View {
                                 } else {
 //                                    Text("✅ 빌딩 데이터 있음: \(buildings.count)개")
                                 }
-                                
-                                if classes.isEmpty {
-                                    Text("🚫 수업 데이터 없음")
-                                    EmptyDataView(context: context)
-                                } else {
-//                                    Text("✅ 수업 데이터 있음: \(classes.count)개")
-                                }
+
                                 
                                 if !buildings.isEmpty {
                                     HomeView()

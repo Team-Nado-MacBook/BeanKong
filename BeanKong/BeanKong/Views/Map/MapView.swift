@@ -29,7 +29,7 @@ struct MapView: View {
                 Marker(building.name,
                        systemImage: "building.2.fill",
                        coordinate: CLLocationCoordinate2D(latitude: building.lat, longitude: building.lng))
-                .tint(.blue)
+                .tint(.red)
                 .tag(building)
             }
         }

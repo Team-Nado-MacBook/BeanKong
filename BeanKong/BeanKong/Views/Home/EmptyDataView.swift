@@ -57,15 +57,7 @@ struct EmptyDataView: View {
         } else {
             print("❌ merged_buildings.json 파일을 찾을 수 없음")
         }
-        
-        // 2️⃣ 수업 JSON 저장
-        if let classURL = Bundle.main.url(forResource: "classes", withExtension: "json") {
-            print("📘 수업 데이터 로드 시작")
-            saveClassesJSONToSwiftData(context: context, url: classURL)
-            print("📗 수업 데이터 로드 완료")
-        } else {
-            print("❌ classes.json 파일을 찾을 수 없음")
-        }
+    
 
         print("✅ 초기 데이터 저장 완료")
     }
