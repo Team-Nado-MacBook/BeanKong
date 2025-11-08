@@ -65,6 +65,7 @@ struct RoomListView: View {
                 HStack {
                     Text(room.room)
                         .font(.headline)
+                    
                     if (isFavorited(room: room)) {
                         Image(systemName:"star.fill")
                             .foregroundStyle(.yellow)
