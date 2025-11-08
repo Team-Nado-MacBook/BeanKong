@@ -75,6 +75,7 @@ struct FavoriteListView: View {
                     }
                 }
             }
+            .onDelete(perform: removeFavorites)
         }
     }
 
@@ -88,6 +89,13 @@ struct FavoriteListView: View {
     // 🔹 즐겨찾기 항목을 삭제하는 헬퍼 함수
     private func removeFavorite(favorite: FavoriteRoomEntity) {
         context.delete(favorite)
+    }
+    
+    private func removeFavorites(at offsets: IndexSet) {
+        for index in offsets {
+            let favorite = favorites[index]
+            context.delete(favorite)
+        }
     }
 }
 

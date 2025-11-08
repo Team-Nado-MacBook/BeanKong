@@ -72,7 +72,6 @@ struct RoomListView: View {
                             .font(.footnote)
                           
                     }
-
                     Spacer()
                     
                     

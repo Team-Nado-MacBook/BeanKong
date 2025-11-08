@@ -107,6 +107,18 @@ struct HomeView: View {
         NavigationStack {
     
                 List() {
+                    Section {
+                        EmptyView()
+                    } header: {
+                        VStack(alignment: .leading) {
+                            Text("빈 강의실 찾기")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .textCase(nil)
+                                .foregroundStyle(Color.black)
+                        }
+                        .padding(.top, 16)
+                    }
                     // 빌딩 리스트
                     Section(header: Text("즐겨찾기")) {
                         FavoriteListView()
@@ -130,18 +142,35 @@ struct HomeView: View {
                 }
                 .scrollIndicators(.hidden)
                 .background(Color(.secondarySystemBackground))
-                .navigationTitle("빈강의실 찾기")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu {                        Button("도움말") {
-                            showHelp.toggle()
-                        }
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .imageScale(.large)
+
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        EditButton()
                     }
+                    
+                    ToolbarItem(placement: .principal) {
+                        VStack(spacing: 2) {
+                            Text("BeanKong")
+                                .font(.headline) // 메인 제목
+                            Text("나만을 위한 빈 강의실 찾기")
+                                .font(.caption2) // 부제목
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Menu {
+                            Button("도움말") {
+                                showHelp.toggle()
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .imageScale(.large)
+                        }
+                    }
+                    
                 }
-            }
             .sheet(isPresented: $showHelp) {
                 VStack {
                     Text("도움말 내용")
