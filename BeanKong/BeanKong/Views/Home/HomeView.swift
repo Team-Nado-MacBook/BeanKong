@@ -107,18 +107,18 @@ struct HomeView: View {
         NavigationStack {
     
                 List() {
-                    Section {
-                        EmptyView()
-                    } header: {
-                        VStack(alignment: .leading) {
-                            Text("빈 강의실 찾기")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .textCase(nil)
-                                .foregroundStyle(Color.black)
-                        }
-                        .padding(.top, 16)
-                    }
+//                    Section {
+//                        EmptyView()
+//                    } header: {
+//                        VStack(alignment: .leading) {
+//                            Text("빈 강의실 찾기")
+//                                .font(.largeTitle)
+//                                .fontWeight(.bold)
+//                                .textCase(nil)
+//                                .foregroundStyle(Color.black)
+//                        }
+//                        .padding(.top, 16)
+//                    }
                     // 빌딩 리스트
                     Section(header: Text("즐겨찾기")) {
                         FavoriteListView()
@@ -145,9 +145,9 @@ struct HomeView: View {
 
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        EditButton()
-                    }
+//                    ToolbarItem(placement: .navigationBarLeading) {
+//                        EditButton()
+//                    }
                     
                     ToolbarItem(placement: .principal) {
                         VStack(spacing: 2) {

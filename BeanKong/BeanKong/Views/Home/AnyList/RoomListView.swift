@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import MapKit
 
 struct RoomListView: View {
     @Environment(\.modelContext) private var context
@@ -7,6 +8,7 @@ struct RoomListView: View {
     let selectedDay: String
     let startClass: String
     let endClass: String
+
 
     @Query var favorites: [FavoriteRoomEntity]
 
@@ -60,58 +62,87 @@ struct RoomListView: View {
     }
 
     var body: some View {
-        List(building.rooms.sorted(by: { $0.room < $1.room }), id: \.id) { room in
-            NavigationLink(destination: ScheduleListView(room: room)) {
-                HStack {
-                    Text(room.room)
-                        .font(.headline)
+        List() {
+
+//                Map(
+//                    coordinateRegion: .constant(
+//                        MKCoordinateRegion(
+//                            center: CLLocationCoordinate2D(latitude: building.lat, longitude: building.lng),
+//                            span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+//                        )
+//                    ),
+//                    annotationItems: [building]
+//                ) { b in
+//                    MapMarker(
+//                        coordinate: CLLocationCoordinate2D(latitude: b.lat, longitude: b.lng),
+//                        tint: .red
+//                    )
+//                }
+//                .frame(height: 150)
+//                .cornerRadius(8)
+//                .listRowBackground(Color.clear)
+            
+            Section {
+                ForEach(building.rooms.sorted(by: { $0.room < $1.room }), id: \.id) { room in
                     
-                    if (isFavorited(room: room)) {
-                        Image(systemName:"star.fill")
-                            .foregroundStyle(.yellow)
-                            .font(.footnote)
-                          
-                    }
-                    Spacer()
                     
                     
-//                    Image(systemName: "circle.fill")
-//                        .foregroundColor(isAvailable(room: room) ? .green : .red)
-//                        .font(.caption)
-//                    Text(isAvailable(room: room) ? "사용 가능" : "사용 중")
-//                        .font(.footnote)
-//                        .foregroundColor(isAvailable(room: room) ? .green : .red)
-                    HStack {
-                        Spacer()
-                        Text(isAvailable(room: room) ? "사용 가능" : "사용 중")
-                            .font(.footnote)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .padding(.vertical, 4)
-                            .frame(width: 70) // 👈 가로 길이 고정 (적당히 깔끔한 폭)
-                            .background(
-                                RoundedRectangle(cornerRadius: 8)
+                    NavigationLink(destination: ScheduleListView(room: room)) {
+                        HStack {
+                            Text(room.room)
+                                .font(.headline)
+                            
+                            if (isFavorited(room: room)) {
+                                Image(systemName:"star.fill")
+                                    .foregroundStyle(.yellow)
+                                    .font(.footnote)
+                                
+                            }
+                            Spacer()
+                            
+                            
+                            //                    Image(systemName: "circle.fill")
+                            //                        .foregroundColor(isAvailable(room: room) ? .green : .red)
+                            //                        .font(.caption)
+                            //                    Text(isAvailable(room: room) ? "사용 가능" : "사용 중")
+                            //                        .font(.footnote)
+                            //                        .foregroundColor(isAvailable(room: room) ? .green : .red)
+                            HStack {
+                                Spacer()
+//                                Text(isAvailable(room: room) ? "사용 가능" : "사용 중")
+//                                    .font(.footnote)
+//                                    .fontWeight(.semibold)
+//                                    .foregroundColor(.white)
+//                                    .padding(.vertical, 4)
+//                                    .frame(width: 70) // 👈 가로 길이 고정 (적당히 깔끔한 폭)
+//                                    .background(
+//                                        RoundedRectangle(cornerRadius: 8)
+//                                            .fill(isAvailable(room: room) ? Color.green : Color.red)
+//                                    )
+                                Circle()
                                     .fill(isAvailable(room: room) ? Color.green : Color.red)
-                            )
+                                    .frame(width: 15, height: 15)
+                            }
+                            
+                            
+                        }
+                        .padding(.vertical, 6)
                     }
-                    
-                    
-                }
-                .padding(.vertical, 6)
-            }
-            // 🔹 row를 길게 누르면(contextMenu) 즐겨찾기 메뉴가 나옵니다.
-            .contextMenu {
-                if isFavorited(room: room) {
-                    Button {
-                        toggleFavorite(room: room)
-                    } label: {
-                        Label("즐겨찾기 제거", systemImage: "star.slash.fill")
-                    }
-                } else {
-                    Button {
-                        toggleFavorite(room: room)
-                    } label: {
-                        Label("즐겨찾기 추가", systemImage: "star")
+                    // 🔹 row를 길게 누르면(contextMenu) 즐겨찾기 메뉴가 나옵니다.
+                    .contextMenu {
+                        if isFavorited(room: room) {
+                            Button {
+                                toggleFavorite(room: room)
+                            } label: {
+                                Label("즐겨찾기 제거", systemImage: "star.slash.fill")
+                            }
+                        } else {
+                            Button {
+                                toggleFavorite(room: room)
+                            } label: {
+                                Label("즐겨찾기 추가", systemImage: "star")
+                            }
+                        }
                     }
                 }
             }

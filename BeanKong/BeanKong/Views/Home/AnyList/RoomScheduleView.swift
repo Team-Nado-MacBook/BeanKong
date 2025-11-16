@@ -34,14 +34,31 @@ struct ScheduleListView: View {
         }
     
     var body: some View {
+       
         List {
-            ForEach(sortedSchedules, id: \.id) { schedule in
-                Section(header: Text(dayToKorean(schedule.day))) {
-                    
-                    TimeBarView(
-                        occupiedSlots: schedule.classes.isEmpty ? [] : schedule.classes,
-                        scheduleDay: schedule.day
-                    )
+            ForEach(sortedSchedules.indices, id: \.self) { index in
+                let schedule = sortedSchedules[index]
+                
+                Section(
+                    header: Text(dayToKorean(schedule.day))
+                ) {
+                    VStack {
+                        TimeBarView(
+                            occupiedSlots: schedule.classes.isEmpty ? [] : schedule.classes,
+                            scheduleDay: schedule.day
+                        )
+                        HStack {
+                            Spacer()
+                            HStack(spacing: 4) {  // 첫 번째 Section만
+                                Circle()
+                                    .fill(Color.green) // ● 초록색
+                                    .frame(width: 8, height: 8)
+                                Text("빈 강의실")
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -79,17 +96,17 @@ struct TimeBarView: View {
     let scheduleDay: String // 👈 1. 오늘 요일인지 비교하기 위해 받음
     
     // 🔹 "빈콩" 색상
-    private let beanColor = Color("beanColor")
+    private let beanColor = Color(.systemGray5)
     // 🔹 비어있는 슬롯 색상
-    private let emptyColor = Color(.systemGray5)
+    private let emptyColor = Color("beanColor")
 
     // 👈 2. [테스트 용] 현재 시간을 '월요일 오전 10시 15분'으로 고정 (테스트 끝나면 원복)
-    private var now: Date {
-            let calendar = Calendar.current
-            let fakeDateComponents = DateComponents(year: 2025, month: 11, day: 10, hour: 10, minute: 15)
-            return calendar.date(from: fakeDateComponents)!
-        }
-    // private let now = Date() // 👈 [원래 코드] 테스트 끝나면 이걸로 복구
+//    private var now: Date {
+//            let calendar = Calendar.current
+//            let fakeDateComponents = DateComponents(year: 2025, month: 11, day: 10, hour: 10, minute: 15)
+//            return calendar.date(from: fakeDateComponents)!
+//        }
+     private let now = Date() // 👈 [원래 코드] 테스트 끝나면 이걸로 복구
 
     
     /// 캘린더에서 오늘의 요일 키(예: "mon", "tue")를 반환합니다.
