@@ -25,7 +25,7 @@ struct MapRoomListView: View {
                             .font(.headline)
                         Spacer()
                         // 🔹 즐겨찾기 여부만 별로 표시
-                        Image(systemName: isFavorited(room: room) ? "star.fill" : "star")
+                        Image(systemName: isFavorited(room: room) ? "star.fill" : "")
                             .foregroundColor(isFavorited(room: room) ? .yellow : .primary)
                     }
                 }

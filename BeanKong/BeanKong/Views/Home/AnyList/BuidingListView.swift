@@ -28,10 +28,18 @@ struct BuildingListView: View {
                     endClass: endClass
                 )
             } label: {
-                VStack(alignment: .leading, spacing: 4) {
+                
                     HStack {
-                        Text(building.name)
-                            .font(.headline)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(building.name)
+                                .font(.headline)
+                            if let userLocation = userLocation {
+                                let distance = distanceInMeters(to: building, from: userLocation)
+                                Text("(\(Int(distance))m)")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
+                        }
                         Spacer()
 //                        Image(systemName: "circle.fill")
 //                            .foregroundColor(.green)
@@ -40,28 +48,25 @@ struct BuildingListView: View {
 //                            .font(.footnote)
 //                            .foregroundColor(.green)
                         HStack(spacing: 4) {
-                            Text("\(availableRoomsCount(for: building)) 사용 가능")
+                            let count = availableRoomsCount(for: building)
+
+                            Text("\(count)")
                                 .font(.footnote)
                                 .fontWeight(.semibold)
                                 .foregroundColor(.white)
-                                .padding(.vertical, 4)
-                                .frame(width: 90) // 👈 적당한 폭 (글자 수 기준)
+                                .frame(width: 22, height: 22)
                                 .background(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .fill(Color.green)
+                                    Circle()
+                                        .fill(.ultraThinMaterial)
+                                        .fill(count == 0 ? Color.red : Color.green)
                                 )
+                            
                         }
                         
                     }
                     
-                    if let userLocation = userLocation {
-                        let distance = distanceInMeters(to: building, from: userLocation)
-                        Text("(\(Int(distance))m)")
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                    }
-                }
-                .padding(.vertical, 6)
+                                    
+//                .padding(.vertical, 6)
             }
         }
     }

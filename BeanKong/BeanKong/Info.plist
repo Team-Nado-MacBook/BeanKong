@@ -4,6 +4,7 @@
 <dict>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>앱 실행 중 위치를 사용합니다</string>
-
+    <key>CFBundleDisplayName</key>
+    <string>빈콩: KNU빈강의실 찾기</string>
 </dict>
 </plist>

@@ -30,7 +30,7 @@ struct SearchView: View {
 
                     ForEach(roomsToShow, id: \.id) { room in
                         NavigationLink(destination: ScheduleListView(room: room)) {
-                            Text("Room \(room.room)")
+                            Text(" \(room.room)")
                         }
                     }
                 }

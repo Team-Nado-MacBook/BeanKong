@@ -46,6 +46,7 @@ struct BeanKongApp: App {
         WindowGroup {
 
                 MainTabView()
+                .accentColor(.clover)
                     .modelContainer(container)
 
         }
