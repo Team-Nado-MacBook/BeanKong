@@ -79,9 +79,9 @@ struct TimeBarView: View {
     let scheduleDay: String // 👈 1. 오늘 요일인지 비교하기 위해 받음
     
     // 🔹 "빈콩" 색상
-    private let beanColor = Color("beanColor")
+    private let beanColor = Color(.systemGray5)
     // 🔹 비어있는 슬롯 색상
-    private let emptyColor = Color(.systemGray5)
+    private let emptyColor = Color("beanColor")
 
     // 👈 2. [테스트 용] 현재 시간을 '월요일 오전 10시 15분'으로 고정 (테스트 끝나면 원복)
     private var now: Date {
